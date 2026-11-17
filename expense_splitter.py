@@ -1,3 +1,17 @@
+"""
+Expense Splitter: calculates net balances and minimizes transactions
+to settle shared group expenses.
+
+Input format (one expense per line):
+    payer;amount;participant1,participant2,...
+    e.g. "Alice;30;Alice,Bob,Carol" -> Alice paid 30 shared by Alice, Bob and Carol.
+
+Usage:
+    python expense_splitter.py
+
+License: MIT (see LICENSE file).
+"""
+
 def parse_expenses(lines):
     expenses = []
     for line in lines:
