@@ -6,7 +6,44 @@ def parse_expenses(lines):
         expenses.append((payer.strip(), float(amount), participants))
     return expenses
 
-#add another function to calculate balances here
+# An expense: (payer, amount, participants)
+Expense = tuple[str, float, list[str]]
+
+
+# Function to calculate balances
+def compute_balances(expenses: list[Expense]) -> dict[str, float]:
+    """
+    Compute the net balance of each person.
+
+    Args:
+        expenses (list[Expense]): (payer, amount, participants) for each expense.
+
+    Returns:
+        dict[str, float]: Balance per person (positive = is owed, negative = owes).
+
+    Raises:
+        ValueError: If an expense has no participants.
+    """
+    # Start with an empty balance for the group
+    balances: dict[str, float] = {}
+
+    # Go through every expense
+    for payer, amount, participants in expenses:
+        # Split the amount equally among the participants (an expense needs at least one)
+        try:
+            share: float = amount / len(participants)
+        except ZeroDivisionError:
+            raise ValueError(f"Expense paid by {payer} has no participants")
+
+        # The payer gets back the whole amount they paid
+        balances[payer] = balances.get(payer, 0.0) + amount
+
+        # Each participant (payer included) owes their share
+        for person in participants:
+            balances[person] = balances.get(person, 0.0) - share
+
+    # Return the net balance of each person
+    return balances
 
 
 def minimize_transactions(balances: dict[str, float]) -> list[tuple[str, str, float]]:
@@ -47,8 +84,11 @@ def minimize_transactions(balances: dict[str, float]) -> list[tuple[str, str, fl
 def main():
     lines = ["Alice;30;Alice,Bob,Carol", "Bob;12;Bob,Carol"]
     expenses = parse_expenses(lines)
-    balances = calculate_balances(expenses) #to be implemented
+    balances = compute_balances(expenses)
     transactions = minimize_transactions(balances)
+    # TEMPORARY: test prints, remove when format_report() is implemented
+    print(balances)
+    print(transactions)
 
 
 if __name__ == "__main__":
