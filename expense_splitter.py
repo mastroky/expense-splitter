@@ -95,14 +95,34 @@ def minimize_transactions(balances: dict[str, float]) -> list[tuple[str, str, fl
     return transfers # return the list of transfers
 
 
+def format_report(transfers: list[tuple[str, str, float]]) -> str:
+    """
+    Format the list of transfers as a human-readable report.
+
+    Args:
+        transfers (list[tuple[str, str, float]]): (debtor, creditor, amount) per transfer.
+
+    Returns:
+        str: One line per transfer, or a message if nobody owes anything.
+    """
+    # If there are no transfers, everyone is already even
+    if not transfers:
+        return "Everyone is settled up!"
+
+    # Build one line per transfer
+    lines = []
+    for debtor, creditor, amount in transfers:
+        lines.append(f"{debtor} pays {creditor}: {amount:.2f} EUR")
+
+    return "\n".join(lines)
+
+
 def main():
     lines = ["Alice;30;Alice,Bob,Carol", "Bob;12;Bob,Carol"]
     expenses = parse_expenses(lines)
     balances = compute_balances(expenses)
     transactions = minimize_transactions(balances)
-    # TEMPORARY: test prints, remove when format_report() is implemented
-    print(balances)
-    print(transactions)
+    print(format_report(transactions))
 
 
 if __name__ == "__main__":
