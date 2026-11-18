@@ -13,7 +13,7 @@ A simple Python tool that calculates the net balance of each person in a group a
 1. **`parse_expenses()`**: reads each expense from text.
 2. **`compute_balances()`**: calculates how much each person is owed (+) or owes (-).
 3. **`minimize_transactions()`**: finds the fewest payments to settle all debts.
-4. **`format_report()`**: prints the result in a readable way *(in progress)*.
+4. **`format_report()`**: prints the result in a readable way.
 
 ## Input format
 
@@ -53,7 +53,7 @@ Payments: Carol pays Alice 16, Bob pays Alice 4
 | Matteo Mastrosanti ([mastroky](https://github.com/mastroky)) | `parse_expenses()` |
 | Rubén Cerro Díaz ([rubencerroo](https://github.com/rubencerroo)) | `compute_balances()` |
 | Raúl Cortés Caballero ([Nhorac](https://github.com/Nhorac)) | `minimize_transactions()` |
-| Álvaro Alemán Cabello | `format_report()` |
+| Álvaro Alemán Cabello ([usernamealphanumeric25](https://github.com/usernamealphanumeric25)) | `format_report()` |
 
 ## License
 
